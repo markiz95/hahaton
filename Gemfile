@@ -14,11 +14,15 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'slim-rails'
 
 group :development, :test do
-  gem 'sqlite3'
+end
+
+group :production  do
+  gem 'pg'
 end
 
 group :development do
   gem 'web-console', '>= 3.3.0'
+  gem 'sqlite3'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
