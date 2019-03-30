@@ -1,4 +1,4 @@
-document.addEventListener("turbolinks:load", function() {
+$(function() {
     $('.datetimepicker').datetimepicker({
         icons: {
             time: "fa fa-clock-o",

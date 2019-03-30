@@ -14,27 +14,28 @@
                 - @event.errors.full_messages.each do |message|
                   li = message
 
-          .form-row
-            .col
-              = f.label :title
-              = f.text_field :title, class: "form-control"
-            .col
-              = f.label :image
-              = f.text_field :image, class: "form-control"
+          .form-group
+            = f.label :title
+            = f.text_field :title, class: "form-control"
           .form-group
             = f.label :description
             = f.text_area :description, class: "form-control"
+          .form-group
+            = f.label :image
+            = f.text_field :image, class: "form-control"
           .form-row
             .col
               = f.label :min_people
-              = f.number_field :min_people, class: "form-control"
+              = f.number_field :min_people, class: "form-control", min: 0
             .col
               = f.label :max_people
               = f.number_field :max_people, class: "form-control"
-          .form-group
-            = f.label :start
-            = f.text_field :start, class: "form-control datetimepicker"
-          .form-group
-            = f.label :end
-            = f.text_field :end, class: "form-control datetimepicker"
-          .actions = f.submit
+          .form-row
+            .col
+              = f.label :start
+              = f.text_field :start, class: "form-control datetimepicker"
+            .col
+              = f.label :end
+              = f.text_field :end, class: "form-control datetimepicker"
+          .actions 
+            = f.submit nil, class: 'btn btn-sucess'
