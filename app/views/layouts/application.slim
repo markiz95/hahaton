@@ -55,32 +55,5 @@ html[lang="en"]
     = asset_path('profile_city.jpg')
     | ') ;">
     .container.text-center
-      .col-md-8.ml-auto.mr-auto
+      .col-md-12.ml-auto.mr-auto
         = yield
-    footer.footer
-      .container
-        nav.float-left
-          ul
-            li
-              a[href="https://www.creative-tim.com"]
-                |  Creative Tim
-            li
-              a[href="https://creative-tim.com/presentation"]
-                |  About Us
-            li
-              a[href="http://blog.creative-tim.com"]
-                |  Blog
-            li
-              a[href="https://www.creative-tim.com/license"]
-                |  Licenses
-        .copyright.float-right
-          |  ©
-          script
-            |  document.write(new Date().getFullYear())
-          | , made with
-          i.material-icons
-            | favorite
-          |  by
-          a[href="https://www.creative-tim.com" target="_blank"]
-            | Creative Tim
-          |  for a better web.
