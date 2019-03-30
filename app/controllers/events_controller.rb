@@ -92,7 +92,6 @@ class EventsController < ApplicationController
       attendees:  attendees,
       id: @event.id * 10000
     })
-    puts new_event.id
     service.insert_event('primary', new_event, send_updates: "all") unless service.get_event('primary', @event.id * 10000)
   end
 

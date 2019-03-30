@@ -23,8 +23,12 @@ class User < ApplicationRecord
     else
       registered_user = User.where(:email => access_token.info.email).first
       if registered_user
-       # registered_user.image = @data["image"] unless registered_user.image
-       return registered_user
+        registered_user.image = @data["image"] unless registered_user.image
+        registered_user.token  = @token
+        registered_user.google_refresh_token = @refresh_token
+        registered_user.oauth_expires_at    = @expires_at
+        registered_user.save
+        return registered_user
       else
        user = User.create(name: @data["name"],
                    provider:access_token.provider,
