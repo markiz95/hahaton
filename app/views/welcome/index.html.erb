@@ -21,7 +21,7 @@
       <div class="navbar-translate">
         <a class="navbar-brand" href="https://demos.creative-tim.com/material-kit/index.html">
           Material Kit - Docs </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation"> 
           <span class="sr-only">Toggle navigation</span>
           <span class="navbar-toggler-icon"></span>
           <span class="navbar-toggler-icon"></span>
@@ -31,10 +31,19 @@
       <div class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
+
             <a class="nav-link" href="https://demos.creative-tim.com/material-kit/index.html">Back to Kit</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="https://github.com/creativetimofficial/material-kit/issues">Have an issue?</a>
+          </li>
+          <li>
+          <% if user_signed_in? %>
+              <p class="nav navbar-text">Welcome <strong><%= current_user.name %></strong></p>
+              <li><%= link_to raw("#{content_tag(:span, '', :class => "glyphicon glyphicon-log-out", :id => 'sign_out')} Sign out"), destroy_user_session_path, :method => :delete %></li>
+          <% else %>
+              <li><%= link_to raw("#{content_tag(:span, '', :class => "glyphicon glyphicon-log-in", :id => 'sign_in')} Sign In with Google"), user_google_oauth2_omniauth_authorize_path %></li>
+          <% end %>
           </li>
         </ul>
       </div>
