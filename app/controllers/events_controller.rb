@@ -63,7 +63,7 @@ class EventsController < ApplicationController
   end
 
   def join
-    @event.users << current_user
+    @event.users << current_user unless @event.users.include?(current_user)
     respond_to do |format|
       format.html { redirect_to events_url, notice: "See you on #{@event.title}" }
       format.json { render :index, status: :ok }
