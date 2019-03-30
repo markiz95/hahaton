@@ -256,7 +256,7 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
 
-  config.omniauth :google_oauth2, Rails.application.secrets.google_client_id, Rails.application.secrets.google_client_secret, {
+  config.omniauth :google_oauth2, Rails.application.secrets.google_client_id || ENV["google_client_id"] , Rails.application.secrets.google_client_secret || ENV["google_client_secret"], {
       access_type: "offline",
       approval_prompt: "",
       scope: 'userinfo.email, userinfo.profile, calendar' 
