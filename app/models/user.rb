@@ -14,16 +14,16 @@ class User < ApplicationRecord
     @token = access_token["credentials"]["token"]
     @refresh_token = access_token["credentials"]["refresh_token"]
     @expires_at = Time.at access_token["credentials"]["expires_at"]
-    user.token  = @token
-    user.google_refresh_token = @refresh_token
-    user.oauth_expires_at    = @expires_at
-    user.save
     if user
+      user.token  = @token
+      user.google_refresh_token = @refresh_token
+      user.oauth_expires_at    = @expires_at
+      user.save
       return user
     else
       registered_user = User.where(:email => access_token.info.email).first
       if registered_user
-       registered_user.image = @data["image"] unless registered_user.image
+       # registered_user.image = @data["image"] unless registered_user.image
        return registered_user
       else
        user = User.create(name: @data["name"],

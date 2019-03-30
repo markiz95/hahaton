@@ -71,7 +71,7 @@ class EventsController < ApplicationController
       format.html { redirect_to events_url, notice: "See you on #{@event.title}" }
       format.json { render :index, status: :ok }
     add_event_to_calendar if @event.users.size == @event.min_people 
-    update_event if @event.users.size > 1 # && !@event.users.include?(current_user)
+    update_event if @event.users.size > @event.min_people  # && !@event.users.include?(current_user)
     end
   end
 
@@ -100,7 +100,7 @@ class EventsController < ApplicationController
     service = Google::Apis::CalendarV3::CalendarService.new
     service.authorization = google_secret.to_authorization
     ev = service.get_event('primary', @event.id * 10000)
-    ev.attendees << current_user.email
+    ev.attendees << {email: current_user.email}
     service.update_event('primary', @event.id * 10000 , ev)
   end
 
