@@ -261,11 +261,10 @@ Devise.setup do |config|
       approval_prompt: ""
   }
   
-#   require 'omniauth-google-oauth2'
-#   config.omniauth :google_oauth2, ENV['GOOGLE_CLIENT_ID'],
-#   ENV['GOOGLE_CLIENT_SECRET'],
-#   { access_type: "offline", approval_prompt: "",
-#   scope: 'userinfo.email,calendar' }
+  require 'omniauth-google-oauth2'
+  config.omniauth :google_oauth2,  Rails.application.secrets.google_client_id, Rails.application.secrets.google_client_secret,
+  { access_type: "offline", approval_prompt: "",
+  scope: 'userinfo.email,calendar' }
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

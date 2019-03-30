@@ -8,32 +8,35 @@ class User < ApplicationRecord
          :timeoutable, :omniauthable
 
   def self.find_for_google_oauth2(access_token, signed_in_resource=nil)
-     @data = access_token.info
-     user = User.where(:provider => access_token.provider, :uid => access_token.uid ).first
-     @token = access_token["credentials"]["token"]
-     @refresh_token = access_token["credentials"]["refresh_token"]
-     @expires_at = access_token["credentials"]["expires_at"]
-     if user
-       user.image = @data["image"] unless user.image
-       return user
-     else
-       registered_user = User.where(:email => access_token.info.email).first
-       if registered_user
-        registered_user.image = @data["image"] unless registered_user.image
-        return registered_user
-       else
-        user = User.create(name: @data["name"],
-                    provider:access_token.provider,
-                    email: @data["email"],
-                    image: @data["image"],
-                    uid: access_token.uid,
-                    password: Devise.friendly_token[0,20],
-                    token: @token         )
-       end
-     end
-   end
+    @data = access_token.info
 
-   def self.find_for_show
-   end 
+    user = User.where(:provider => access_token.provider, :uid => access_token.uid ).first
+    @token = access_token["credentials"]["token"]
+    @refresh_token = access_token["credentials"]["refresh_token"]
+    @expires_at = Time.at access_token["credentials"]["expires_at"]
+    user.token  = @token
+    user.google_refresh_token = @refresh_token
+    user.oauth_expires_at    = @expires_at
+    user.save
+    if user
+      return user
+    else
+      registered_user = User.where(:email => access_token.info.email).first
+      if registered_user
+       registered_user.image = @data["image"] unless registered_user.image
+       return registered_user
+      else
+       user = User.create(name: @data["name"],
+                   provider:access_token.provider,
+                   email: @data["email"],
+                   image: @data["image"],
+                   uid: access_token.uid,
+                   password: Devise.friendly_token[0,20],
+                   token: @token,
+                   google_refresh_token: @refresh_token,
+                   oauth_expires_at: @expires_at)
+      end
+    end
+  end
 
 end

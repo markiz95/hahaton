@@ -13,7 +13,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
-gem 'google-api-client'
+gem 'google-api-client', require: 'google/apis/calendar_v3'
 gem "devise-encryptable"
 gem "chronic"
 
