@@ -6,6 +6,10 @@ p
 p
   strong Description:
   = @event.description
+- if @event.image
+  p
+    strong Image:
+    = image_tag(@event.image)
 p
   strong Min people:
   = @event.min_people
@@ -24,6 +28,9 @@ p
 p
   strong End:
   = @event.end
+p
+  strong Tags:
+  = @event.all_tags
 
 => link_to 'Edit', edit_event_path(@event)
 => link_to 'Join', join_event_path(@event)

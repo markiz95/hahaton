@@ -37,5 +37,8 @@
             .col
               = f.label :end
               = f.text_field :end, class: "form-control datetimepicker"
+          .form-group
+            = f.label :all_tags
+            = f.text_field :all_tags, class: 'form-control'
           .actions 
             = f.submit nil, class: 'btn btn-sucess'
