@@ -1,27 +1,40 @@
-= form_for @event do |f|
-  - if @event.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@event.errors.count, "error")} prohibited this event from being saved:"
-      ul
-        - @event.errors.full_messages.each do |message|
-          li = message
+.row
+  .col-md-4.offset-md-4
+    .card
+      .card-header.card-header-rose.card-header-text
+        .card-text.text-center
+          h3.card-title New event
+      .card-body
 
-  .field
-    = f.label :title
-    = f.text_field :title
-  .field
-    = f.label :description
-    = f.text_area :description
-  .field
-    = f.label :min_people
-    = f.number_field :min_people
-  .field
-    = f.label :max_people
-    = f.number_field :max_people
-  .field
-    = f.label :start
-    = f.datetime_select :start
-  .field
-    = f.label :end
-    = f.datetime_select :end
-  .actions = f.submit
+        = form_for @event do |f|
+          - if @event.errors.any?
+            #error_explanation
+              h2 = "#{pluralize(@event.errors.count, "error")} prohibited this event from being saved:"
+              ul
+                - @event.errors.full_messages.each do |message|
+                  li = message
+
+          .form-row
+            .col
+              = f.label :title
+              = f.text_field :title, class: "form-control"
+            .col
+              = f.label :image
+              = f.text_field :image, class: "form-control"
+          .form-group
+            = f.label :description
+            = f.text_area :description, class: "form-control"
+          .form-row
+            .col
+              = f.label :min_people
+              = f.number_field :min_people, class: "form-control"
+            .col
+              = f.label :max_people
+              = f.number_field :max_people, class: "form-control"
+          .form-group
+            = f.label :start
+            = f.text_field :start, class: "form-control datetimepicker"
+          .form-group
+            = f.label :end
+            = f.text_field :end, class: "form-control datetimepicker"
+          .actions = f.submit
