@@ -11,18 +11,14 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 
+gem 'pg'
 gem 'slim-rails'
 
-group :development, :test do
-end
-
-group :production  do
-  gem 'pg'
+group :production  do  
 end
 
 group :development do
   gem 'web-console', '>= 3.3.0'
-  gem 'sqlite3'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
