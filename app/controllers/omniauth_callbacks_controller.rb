@@ -10,8 +10,11 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
 
     @user = User.find_for_google_oauth2(request.env["omniauth.auth"], current_user)
-    new_event
+    # new_event
     if @user.persisted?
+      puts ";ds;as;das;dasdas"
+      puts @user.inspect
+      current_user = @user
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Google"
       sign_in_and_redirect @user, :event => :authorization
     else
@@ -40,10 +43,6 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   
     client = init_client
     client.code = params[:code]
-    puts "+++++++++++"
-    puts @user.inspect
-    puts "_________________"
-    
     # # client.update!(session[:authorization])
     # # client.code = params[:code]
 

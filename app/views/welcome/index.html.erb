@@ -39,7 +39,7 @@
           </li>
           <li>
           <% if user_signed_in? %>
-              <p class="nav navbar-text">Welcome <strong><%= current_user.name %></strong></p>
+              <p class="nav navbar-text">Welcome <strong ><%= link_to current_user.name, users_show_path %><% puts current_user.inspect%></strong></p>
               <li><%= link_to raw("#{content_tag(:span, '', :class => "glyphicon glyphicon-log-out", :id => 'sign_out')} Sign out"), destroy_user_session_path, :method => :delete %></li>
           <% else %>
               <li><%= link_to raw("#{content_tag(:span, '', :class => "glyphicon glyphicon-log-in", :id => 'sign_in')} Sign In with Google"), user_google_oauth2_omniauth_authorize_path %></li>
