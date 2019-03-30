@@ -1,0 +1,30 @@
+p#notice = notice
+
+p
+  strong Title:
+  = @event.title
+p
+  strong Description:
+  = @event.description
+p
+  strong Min people:
+  = @event.min_people
+p
+  strong Max people:
+  = @event.max_people
+p
+  strong Members:
+  = @event.members
+p
+  strong Creator:
+  = @event.creator
+p
+  strong Start:
+  = @event.start
+p
+  strong End:
+  = @event.end
+
+=> link_to 'Edit', edit_event_path(@event)
+'|
+=< link_to 'Back', events_path
