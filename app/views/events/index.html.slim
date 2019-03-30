@@ -1,39 +1,49 @@
-h1 Listing events
+.container
+.ml-auto.mr-auto
+  h1 Listing events
 
-table
-  thead
-    tr
-      th Title
-      th Description
-      th Min people
-      th Max people
-      th Members
-      th Creator
-      th Start
-      th End
-      th Tags
-      th
-      th
-      th
-      th
+  - @events.each_slice(3) do |e1, e2, e3|
+    .row
+      = render 'event', event: e1 if e1
+      = render 'event', event: e2 if e2
+      = render 'event', event: e3 if e3
+        
+                
 
-  tbody
-    - @events.each do |event|
+  table
+    thead
       tr
-        td = event.title
-        td = event.description
-        td = event.min_people
-        td = event.max_people
-        td = event.users.map(&:name).join(',')
-        td = event.creator.name
-        td = event.start
-        td = event.end
-        td = event.all_tags
-        td = link_to 'Show', event
-        td = link_to 'Join', join_event_path(event)
-        td = link_to 'Edit', edit_event_path(event)
-        td = link_to 'Destroy', event, data: { confirm: 'Are you sure?' }, method: :delete
+        th Title
+        th Description
+        th Min people
+        th Max people
+        th Members
+        th Creator
+        th Start
+        th End
+        th Tags
+        th
+        th
+        th
+        th
 
-br
+    tbody
+      - @events.each do |event|
+        tr
+          td = event.title
+          td = event.description
+          td = event.min_people
+          td = event.max_people
+          td = event.users.map(&:name).join(',')
+          td = event.creator.name
+          td = event.start
+          td = event.end
+          td = event.all_tags
+          td = link_to 'Show', event
+          td = link_to 'Join', join_event_path(event)
+          td = link_to 'Edit', edit_event_path(event)
+          td = link_to 'Destroy', event, data: { confirm: 'Are you sure?' }, method: :delete
 
-= link_to 'New Event', new_event_path
+  br
+
+  = link_to 'New Event', new_event_path
