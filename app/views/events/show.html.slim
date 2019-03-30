@@ -14,10 +14,10 @@ p
   = @event.max_people
 p
   strong Members:
-  = @event.members
+  = @event.users.map(&:name)
 p
   strong Creator:
-  = @event.creator
+  = @event.creator.name
 p
   strong Start:
   = @event.start
@@ -26,5 +26,6 @@ p
   = @event.end
 
 => link_to 'Edit', edit_event_path(@event)
+=> link_to 'Join', join_event_path(@event)
 '|
 =< link_to 'Back', events_path

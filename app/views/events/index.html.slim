@@ -14,6 +14,7 @@ table
       th
       th
       th
+      th
 
   tbody
     - @events.each do |event|
@@ -22,11 +23,12 @@ table
         td = event.description
         td = event.min_people
         td = event.max_people
-        td = event.members
-        td = event.creator
+        td = event.users.map(&:name)
+        td = event.creator.name
         td = event.start
         td = event.end
         td = link_to 'Show', event
+        td = link_to 'Join', join_event_path(event)
         td = link_to 'Edit', edit_event_path(event)
         td = link_to 'Destroy', event, data: { confirm: 'Are you sure?' }, method: :delete
 
