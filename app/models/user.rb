@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-  has_many :events, foreign_key: :creator_id, class_name: "Event"
-  has_many :members
+  has_many :creator, foreign_key: :creator_id, class_name: "Event", dependent: :destroy
+  has_many :members, dependent: :destroy
   has_many :events, through: :members
 
   devise :database_authenticatable, :registerable,
