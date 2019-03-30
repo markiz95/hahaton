@@ -2,19 +2,19 @@
          .card
             = image_tag(event.image.to_s, class: "card-img-top")
             .card-body
-            h4.card-title = event.title
-            .text-right
-               = link_to 'Join', join_event_path(event), class: "btn btn-success btn-round btn-sm"
-            .text-left
-               p.card-text
-                  i.material-icons event
-                  = event.start
-               p.card-text
-                  i.material-icons group
-                  = event.min_people   
-               .author
-                  = image_tag(event.creator.image, class: "avatar img-raised")
-                  span = event.creator.name
-               span class="badge badge-pill badge-info" Concert 
-               span class="badge badge-pill badge-info" Relax 
-               span class="badge badge-pill badge-info" Beer 
+               h4.card-title = event.title
+               .text-right
+                  = link_to 'Join', join_event_path(event), class: "btn btn-success btn-round btn-sm"
+               .text-left
+                  p.card-text
+                     i.material-icons event
+                     = date_range(event)
+                  p.card-text
+                     i.material-icons group
+                     = participants(event) 
+                  .author
+                     = image_tag(event.creator.image, class: "avatar img-raised")
+                     span = event.creator.name
+                  - event.tags.each do |t|
+                    span class="badge badge-pill badge-info" = t.name 
+                  

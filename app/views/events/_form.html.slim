@@ -26,10 +26,10 @@
           .form-row
             .col
               = f.label :min_people
-              = f.number_field :min_people, class: "form-control", min: 0
+              = f.number_field :min_people, class: "form-control", min: 2
             .col
               = f.label :max_people
-              = f.number_field :max_people, class: "form-control"
+              = f.number_field :max_people, class: "form-control", min: 2
           .form-row
             .col
               = f.label :start
