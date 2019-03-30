@@ -11,6 +11,7 @@ table
       th Creator
       th Start
       th End
+      th Tags
       th
       th
       th
@@ -27,6 +28,7 @@ table
         td = event.creator.name
         td = event.start
         td = event.end
+        td = event.all_tags
         td = link_to 'Show', event
         td = link_to 'Join', join_event_path(event)
         td = link_to 'Edit', edit_event_path(event)
