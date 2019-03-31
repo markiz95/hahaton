@@ -29,6 +29,7 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     @event.creator = current_user
+    @event.users << current_user
 
     respond_to do |format|
       if @event.save
