@@ -29,7 +29,7 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     @event.creator = current_user
-    join
+    join_event
 
     respond_to do |format|
       if @event.save
@@ -45,7 +45,7 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1
   # PATCH/PUT /events/1.json
   def update
-    join
+    join_event
     respond_to do |format|
       if @event.update(event_params)
         format.html { redirect_to @event, notice: 'Event was successfully updated.' }
@@ -68,12 +68,10 @@ class EventsController < ApplicationController
   end
 
   def join
-    @event.users << current_user unless @event.users.include?(current_user)
+    join_event
     respond_to do |format|
       format.html { redirect_to events_url, notice: "See you on #{@event.title}" }
       format.json { render :index, status: :ok }
-    add_event_to_calendar if @event.users.size == @event.min_people 
-    update_event if @event.users.size > @event.min_people  # && !@event.users.include?(current_user)
     end
   end
 
@@ -106,6 +104,12 @@ class EventsController < ApplicationController
   end
 
   private
+
+  def join_event
+    @event.users << current_user unless @event.users.include?(current_user)
+    add_event_to_calendar if @event.users.size == @event.min_people
+    update_event if @event.users.size > @event.min_people  # && !@event.users.include?(current_user)
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_event
