@@ -76,42 +76,51 @@ class EventsController < ApplicationController
   end
 
   def add_event_to_calendar
-    service = Google::Apis::CalendarV3::CalendarService.new
-    service.authorization = google_secret.to_authorization
-    service.authorization.fetch_access_token!
-    start = @event.start.rfc3339
-    end_time =  @event.end.rfc3339
-    attendees = @event.users.map do |user| {email: user.email} end
-    attendees << {email: @event.creator.email}
-    new_event =  Google::Apis::CalendarV3::Event.new({
-      summary: @event.title,
-      location: 'event address',
-      description: @event.description,
-      start: { date_time: start, 'timeZone': "Europe/Minsk"},
-      end: { date_time: end_time, 'timeZone': "Europe/Minsk" },
-      guests_can_see_other_guests: true,
-      attendees:  attendees,
-      id: @event.id * 10000
-    })
-    service.insert_event('primary', new_event, send_updates: "all")
+    service = create_service
+    begin
+      ev = service.get_event('primary', @event.id * 10000)
+      update_event(ev, service)
+    rescue Google::Apis::ClientError 
+      start = @event.start.rfc3339 if @event.start
+      end_time =  @event.end.rfc3339 if @event.end
+      attendees = @event.users.map do |user| {email: user.email} end
+      attendees << {email: @event.creator.email}
+      new_event =  Google::Apis::CalendarV3::Event.new({
+        summary: @event.title,
+        location: 'event address',
+        description: @event.description,
+        start: { date_time: start, 'timeZone': "Europe/Minsk"},
+        end: { date_time: end_time, 'timeZone': "Europe/Minsk" },
+        guests_can_see_other_guests: true,
+        attendees:  attendees,
+        id: @event.id * 10000
+      })
+      service.insert_event('primary', new_event, send_updates: "all")
+    end
   end
 
 
-  def update_event
+  def update_event(ev, service)
+    ev.attendees << {email: current_user.email}
+    ev.start = { date_time: @event.start.rfc3339 } if @event.start
+    ev.end =  { date_time: @event.end.rfc3339 } if @event.end
+    ev.summary = @event.title 
+    ev.description = @event.description
+    service.update_event('primary', @event.id * 10000 , ev)
+  end
+
+  def create_service
     service = Google::Apis::CalendarV3::CalendarService.new
     service.authorization = google_secret.to_authorization
     service.authorization.fetch_access_token!
-    ev = service.get_event('primary', @event.id * 10000) if service
-    ev.attendees << {email: current_user.email}
-    service.update_event('primary', @event.id * 10000 , ev)
+    service
   end
 
   private
 
   def join_event
     @event.users << current_user unless @event.users.include?(current_user)
-    add_event_to_calendar if @event.users.size == @event.min_people
-    update_event if @event.users.size > @event.min_people  # && !@event.users.include?(current_user)
+    add_event_to_calendar if @event.users.size >= @event.min_people  # && !@event.users.include?(current_user)
   end
 
   # Use callbacks to share common setup or constraints between actions.
