@@ -1,0 +1,11 @@
+.text-right
+	- if current_user && event.members.where(user_id: current_user.id).size > 0
+			button.btn.btn-success.btn-just-icon.btn-round.disabled: i.material-icons done
+	- else 
+			= link_to join_event_path(event), class: "btn btn-primary btn-round btn-just-icon #{"disabled" if current_user.nil?}" do 
+				i.material-icons person_add
+	
+	= link_to edit_event_path(event), class: "btn btn-warning btn-just-icon btn-round" do 
+		i.material-icons mode_edit
+	= link_to event_path(event), method: :delete, data: { confirm: 'Are you sure?' },  class: "btn btn-danger btn-just-icon btn-round" do 
+		i.material-icons delete

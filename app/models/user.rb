@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_many :members, dependent: :destroy
   has_many :events, through: :members
   acts_as_follower
+  scope :all_except, ->(user) { where.not(id: user) }
 
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable,

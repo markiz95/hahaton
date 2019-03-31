@@ -6,5 +6,5 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get '/callback', to: 'users#callback', as: 'callback'
 
-  get 'users/edit' => "users#edit"
+  resources :users, only: [:edit, :update]
 end
