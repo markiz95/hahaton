@@ -1,19 +1,25 @@
 .col-md-4
-   .card
-      a href="#{event_path(event.id)}" = image_tag(event.image.to_s, class: "card-img-top card-img-fixed")
-      .card-body
-         h4.card-title = event.title
-         = render "join", event: event
-         .text-left
-            p.card-text
-               i.material-icons event
-               = date_range(event)
-            p.card-text
-               i.material-icons group
-               = participants(event)
-            .author
-               = image_tag(event.creator.image, class: "avatar img-raised")
-               span = event.creator.name
-            - event.tags.each do |t|
-              span> class="badge badge-pill badge-info" = t.name
-                  
+  .card
+    a href="#{event_path(event.id)}" = image_tag(event.image.to_s, class: "card-img-top card-img-fixed")
+    .card-body
+      h4.card-title = event.title
+      = render "join", event: event
+      .text-left
+        p.card-text
+          i.material-icons event
+          = date_range(event)
+        p.card-text
+          i.material-icons group
+          = participants(event)
+          .progress.progress-line-success
+            .progress-bar.progress-bar-success{ role="progressbar"
+                                            aria-valuenow="#{event.members.size}"
+                                            aria-valuemin="0"
+                                            aria-valuemax="#{event.min_people}"
+                                            style="width: #{event.members.size.to_f/event.min_people*100}%;" }
+              span.sr-only
+        .author
+          = image_tag(event.creator.image, class: "avatar img-raised")
+          span = event.creator.name
+        - event.tags.each do |t|
+          span> class="badge badge-pill badge-info" = t.name

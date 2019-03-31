@@ -16,6 +16,7 @@ module EventHelper
   end
 
   def participants(event)
-    event.max_people ? "#{event.members.size} from #{event.max_people}" : event.members.size
+    max = " - #{event.max_people}" if event.max_people
+    "#{event.min_people}#{max}, now: #{event.members.size}"
   end
 end
