@@ -14,13 +14,11 @@ class User < ApplicationRecord
     @data = access_token.info
     @expires_at = Time.now + access_token["credentials"]['expires_at']
     user = User.where(:provider => access_token.provider, :uid => access_token.uid ).first
-    if  @expires_at < Time.now 
-      uri = URI('https://accounts.google.com/o/oauth2/revoke') 
-      params = {:token => access_token["credentials"]["refresh_token"] }
-      uri.query = URI.encode_www_form(params)
-      response = Net::HTTP.get(uri)
-      @expires_at = Time.now + access_token["credentials"]['expires_at']
-    end
+    uri = URI('https://accounts.google.com/o/oauth2/revoke') 
+    params = {:token => access_token["credentials"]["token"] }
+    uri.query = URI.encode_www_form(params)
+    response = Net::HTTP.get(uri)
+    @expires_at = Time.now + access_token["credentials"]['expires_at']
     @token = access_token["credentials"]["token"]
     @refresh_token = access_token["credentials"]["refresh_token"]
     if user
