@@ -112,7 +112,7 @@ class EventsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def event_params
-    params.require(:event).permit(:title, :description, :min_people, :max_people, :members, :creator, :start, :end, :image)
+    params.require(:event).permit(:title, :description, :min_people, :max_people, :all_tags, :creator, :start, :end, :image)
   end
 
   def google_secret
