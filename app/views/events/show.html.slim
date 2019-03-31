@@ -16,7 +16,14 @@
           p.card-text = @event.description
           - @event.tags.each do |t|
             span> class="badge badge-pill badge-info" = t.name
-          h4.card-category: strong = "#{participants(@event)} Participants"
+          h4.card-category: strong = "Participants #{participants(@event)}"
+          .progress.progress-line-success
+            .progress-bar.progress-bar-success{ role="progressbar"
+              aria-valuenow="#{@event.members.size}"
+              aria-valuemin="0"
+              aria-valuemax="#{@event.min_people}"
+              style="width: #{@event.members.size.to_f/@event.min_people * 100}%;" }
+              span.sr-only
           - @event.members.each do |m|
             .author
               = image_tag(m.user.image, class: "avatar img-raised")
