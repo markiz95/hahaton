@@ -121,8 +121,8 @@ class EventsController < ApplicationController
   private
 
   def join_event
-    @event.users << current_user unless @event.users.include?(current_user)
     add_event_to_calendar if @event.users.size >= @event.min_people  # && !@event.users.include?(current_user)
+    @event.users << current_user unless @event.users.include?(current_user)
   end
 
   # Use callbacks to share common setup or constraints between actions.
