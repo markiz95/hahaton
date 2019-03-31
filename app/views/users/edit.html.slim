@@ -9,9 +9,19 @@
       .row
         .form-group.col
           = f.label :following_users
-          = select_tag :following_users, options_for_select(User.all_except(current_user).collect {|u| [u.email, u.id]}),:multiple => true, class: "form-control selectpicker", style: "min-height: 200px;"
+          = select_tag :following_users,
+                  options_for_select(User.all_except(current_user).collect {|u| [u.name, u.id]},
+                          current_user.following_by_type('User').map(&:id)),
+                  :multiple => true,
+                  class: "form-control selectpicker",
+                  style: "min-height: 200px;"
         .form-group.col
           = f.label :following_tags
-          = select_tag :following_tags, options_for_select(Tag.all.collect {|u| [u.name, u.id]}),:multiple => true, class: "form-control selectpicker", style: "min-height: 200px;"
+          = select_tag :following_tags,
+                  options_for_select(Tag.all.collect {|u| [u.name, u.id]},
+                          current_user.following_by_type('Tag').map(&:id)),
+                  :multiple => true,
+                  class: "form-control selectpicker",
+                  style: "min-height: 200px;"
       .actions
         = f.submit 'Update', class: 'btn btn-sucess'

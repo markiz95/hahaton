@@ -2,6 +2,7 @@ class User < ApplicationRecord
   has_many :creator, foreign_key: :creator_id, class_name: "Event", dependent: :destroy
   has_many :members, dependent: :destroy
   has_many :events, through: :members
+  acts_as_followable
   acts_as_follower
   scope :all_except, ->(user) { where.not(id: user) }
 
