@@ -1,23 +1,23 @@
-      .col-md-4
-         .card
-            a href="#{event_path(event.id)}" = image_tag(event.image.to_s, class: "card-img-top card-img-fixed")
-            .card-body
-               h4.card-title = event.title
-               .text-right
-                  - if event.members.where(user_id: current_user.id).size == 0
-                     = link_to 'Join', join_event_path(event), class: "btn btn-primary btn-round btn-sm"
-                  - else
-                     button.btn.btn-success.btn-round.btn-sm: i.material-icons done
-               .text-left
-                  p.card-text
-                     i.material-icons event
-                     = date_range(event)
-                  p.card-text
-                     i.material-icons group
-                     = participants(event) 
-                  .author
-                     = image_tag(event.creator.image, class: "avatar img-raised")
-                     span = event.creator.name
-                  - event.tags.each do |t|
-                    span class="badge badge-pill badge-info" = t.name 
+.col-md-4
+   .card
+      a href="#{event_path(event.id)}" = image_tag(event.image.to_s, class: "card-img-top card-img-fixed")
+      .card-body
+         h4.card-title = event.title
+         .text-right
+            - if event.members.where(user_id: current_user.id).size == 0
+               = link_to 'Join', join_event_path(event), class: "btn btn-primary btn-round btn-sm"
+            - else
+               button.btn.btn-success.btn-round.btn-sm: i.material-icons done
+         .text-left
+            p.card-text
+               i.material-icons event
+               = date_range(event)
+            p.card-text
+               i.material-icons group
+               = participants(event)
+            .author
+               = image_tag(event.creator.image, class: "avatar img-raised")
+               span = event.creator.name
+            - event.tags.each do |t|
+              span class="badge badge-pill badge-info" = t.name
                   

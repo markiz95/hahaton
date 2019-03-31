@@ -8,5 +8,4 @@ Rails.application.routes.draw do
   get '/callback', to: 'users#callback', as: 'callback'
 
   get 'users/edit' => "users#edit"
-  get 'welcome/index' => "welcome#index"
 end
