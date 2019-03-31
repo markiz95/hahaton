@@ -25,7 +25,6 @@ html[lang="en"]
                     | Welcome
                     strong
                       = link_to current_user.name, edit_user_path(current_user)
-                      = link_to image_tag(current_user.image, :class => "users_image"), edit_user_path(current_user)
                       - puts current_user.inspect
                   li.nav_item
                     = link_to raw("#{content_tag(:span, '', :class => "glyphicon glyphicon-log-out", :id => 'sign_out')} Sign out"), destroy_user_session_path, :method => :delete, class: "nav-link"
