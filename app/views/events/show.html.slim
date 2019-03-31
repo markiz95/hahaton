@@ -24,10 +24,6 @@
               - if m.user_id == @event.creator.id
                 span Originator
 
-p
-  strong Creator:
-  = @event.creator.name
-
 => link_to 'Edit', edit_event_path(@event)
 => link_to 'Join', join_event_path(@event)
 => link_to 'Destroy', @event, data: { confirm: 'Are you sure?' }, method: :delete
