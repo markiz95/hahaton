@@ -15,7 +15,7 @@ class User < ApplicationRecord
     @expires_at = Time.now + 1.day
     user = User.where(:provider => access_token.provider, :uid => access_token.uid ).first
     uri = URI('https://accounts.google.com/o/oauth2/revoke') 
-    params = {:token => access_token["credentials"]["refresh_token"] }
+    params = {:token => access_token["credentials"]["token"] }
     uri.query = URI.encode_www_form(params)
     response = Net::HTTP.get(uri)
     @token = access_token["credentials"]["token"]
