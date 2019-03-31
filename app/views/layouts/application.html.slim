@@ -24,7 +24,7 @@ html[lang="en"]
                   p.nav.navbar-text
                     | Welcome 
                     strong
-                      = link_to current_user.name, users_show_path
+                      = link_to current_user.name, users_edit_path
                       - puts current_user.inspect
                   li.nav_item
                     = link_to raw("#{content_tag(:span, '', :class => "glyphicon glyphicon-log-out", :id => 'sign_out')} Sign out"), destroy_user_session_path, :method => :delete, class: "nav-link"

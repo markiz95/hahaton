@@ -2,8 +2,9 @@ class User < ApplicationRecord
   has_many :creator, foreign_key: :creator_id, class_name: "Event", dependent: :destroy
   has_many :members, dependent: :destroy
   has_many :events, through: :members
+  acts_as_follower
 
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable,
          :timeoutable, :omniauthable
 

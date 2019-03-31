@@ -16,7 +16,7 @@ gem 'omniauth-google-oauth2'
 gem 'google-api-client', require: 'google/apis/calendar_v3'
 gem "devise-encryptable"
 gem "chronic"
-
+gem 'acts_as_follower', github: 'tcocca/acts_as_follower', branch: 'master'
 gem 'pg'
 gem 'slim-rails'
 

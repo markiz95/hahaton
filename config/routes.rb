@@ -7,7 +7,6 @@ Rails.application.routes.draw do
   get '/redirect', to: 'welcome#index', as: 'redirect'
   get '/callback', to: 'users#callback', as: 'callback'
 
-
-  get 'users/show' => "users#show"
+  get 'users/edit' => "users#edit"
   get 'welcome/index' => "welcome#index"
 end

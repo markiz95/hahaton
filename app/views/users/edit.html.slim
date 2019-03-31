@@ -1,0 +1,13 @@
+.row
+  aside.col-md-4
+    section.user_info
+      = image_tag(current_user.image)
+      h1
+        = current_user.name
+  .col-md-8
+    / = form_for current_user do |f|
+    /   .form-group
+    /     = f.label :title
+    /     = f.text_field :title, class: "form-control"
+    / = select_tag :following_users, options_for_select(User.all.collect {|u| [u.email, u.id]}),:multiple => true
+    / = select_tag :following_tags, options_for_select(Tag.all.collect {|u| [u.name, u.id]}),:multiple => true
