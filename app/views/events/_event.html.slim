@@ -3,14 +3,7 @@
       a href="#{event_path(event.id)}" = image_tag(event.image.to_s, class: "card-img-top card-img-fixed")
       .card-body
          h4.card-title = event.title
-         .text-right
-            - if current_user && event.members.where(user_id: current_user.id).size > 0
-               button.btn.btn-success.btn-round.btn-sm.disabled: i.material-icons done
-            - elsif current_user.nil?
-               = link_to 'Join', join_event_path(event), class: "btn btn-primary btn-round btn-sm disabled"
-            - else
-               = link_to 'Join', join_event_path(event), class: "btn btn-primary btn-round btn-sm"
-               
+         = render "join", event: event
          .text-left
             p.card-text
                i.material-icons event
@@ -22,5 +15,5 @@
                = image_tag(event.creator.image, class: "avatar img-raised")
                span = event.creator.name
             - event.tags.each do |t|
-              span class="badge badge-pill badge-info" = t.name
+              span> class="badge badge-pill badge-info" = t.name
                   
