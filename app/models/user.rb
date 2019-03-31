@@ -12,17 +12,17 @@ class User < ApplicationRecord
 
   def self.find_for_google_oauth2(access_token, signed_in_resource=nil)
     @data = access_token.info
+    @expires_at = Time.now + access_token["credentials"]['expires_at']
     user = User.where(:provider => access_token.provider, :uid => access_token.uid ).first
+    if  @expires_at < Time.now 
+      uri = URI('https://accounts.google.com/o/oauth2/revoke') 
+      params = {:token => access_token["credentials"]["refresh_token"] }
+      uri.query = URI.encode_www_form(params)
+      response = Net::HTTP.get(uri)
+      @expires_at = Time.now + access_token["credentials"]['expires_at']
+    end
     @token = access_token["credentials"]["token"]
-    t = @token 
-    url = URI("https://accounts.google.com/o/oauth2/token")
-    data = JSON.parse(Net::HTTP.post_form(url, { 'refresh_token' =>@token,
-      'client_id'     => Rails.application.secrets.google_client_id,
-      'client_secret' => Rails.application.secrets.google_client_secret,
-      'grant_type'    => 'refresh_token'}).body)
-    t = data['access_token']
-    @expires_at = Time.now + data['expires_in'].to_i.seconds
-    @refresh_token = t
+    @refresh_token = access_token["credentials"]["refresh_token"]
     if user
       user.token  = @token
       user.google_refresh_token = @refresh_token

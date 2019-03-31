@@ -91,7 +91,7 @@ class EventsController < ApplicationController
         summary: @event.title,
         location: 'event address',
         description: @event.description,
-        start: { date_time: start, 'timeZone': "Europe/Minsk"},
+        start: { date_time: start, 'timeZone': "Europe/Minsk" },
         end: { date_time: end_time, 'timeZone': "Europe/Minsk" },
         guests_can_see_other_guests: true,
         attendees:  attendees,
