@@ -7,7 +7,7 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    @events = Event.all
+    @events = Event.includes(:tags, :members, :creator).all
   end
 
   # GET /events/1

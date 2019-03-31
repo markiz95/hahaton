@@ -11,31 +11,27 @@ html[lang="en"]
     = csp_meta_tag
     = stylesheet_link_tag    'application', media: 'all'
     = javascript_include_tag 'application'
-  body.offline-doc
-    nav#sectionsNav.navbar.navbar-transparent.navbar-color-on-scroll.fixed-top.navbar-expand-lg[color-on-scroll="100"]
-      .container
-        .collapse.navbar-collapse
-          ul.navbar-nav.mr-auto
-            li
-              = link_to "Home", root_path, class: "nav-link", class: "nav-link"
-          ul.navbar-nav.ml-auto
-            li
-              = link_to "New Event", new_event_path, class: "nav-link"
-            li
-              - if user_signed_in?
-                p.nav.navbar-text
-                  | Welcome 
-                  strong
-                    = link_to current_user.name, users_show_path
-                    - puts current_user.inspect
-                li
-                  = link_to raw("#{content_tag(:span, '', :class => "glyphicon glyphicon-log-out", :id => 'sign_out')} Sign out"), destroy_user_session_path, :method => :delete, class: "nav-link"
-              - else
-                li
-                  = link_to raw("#{content_tag(:span, '', :class => "glyphicon glyphicon-log-in", :id => 'sign_in')} Sign In with Google"), user_google_oauth2_omniauth_authorize_path
-    |  <div class="page-header header-filter clear-filter purple-filter" style="background-image: url('
-    = asset_path('profile_city.jpg')
-    | ') ;">
-    .container.text-center
-      .col-md-12.ml-auto.mr-auto
-        = yield
+  body
+      nav#sectionsNav.navbar.navbar-expand-md.bbg-white
+        .container
+          a.navbar-brand href="/" Svaha
+          .collapse.navbar-collapse
+            ul.navbar-nav.mr-auto
+              li.nav-item = link_to "New Event", new_event_path, class: "nav-link"
+            ul.navbar-nav.ml-auto
+              li.nav_item
+                - if user_signed_in?
+                  p.nav.navbar-text
+                    | Welcome 
+                    strong
+                      = link_to current_user.name, users_show_path
+                      - puts current_user.inspect
+                  li.nav_item
+                    = link_to raw("#{content_tag(:span, '', :class => "glyphicon glyphicon-log-out", :id => 'sign_out')} Sign out"), destroy_user_session_path, :method => :delete, class: "nav-link"
+                - else
+                  li.nav_item
+                    = link_to raw("#{content_tag(:span, '', :class => "glyphicon glyphicon-log-in", :id => 'sign_in')} Sign In with Google"), user_google_oauth2_omniauth_authorize_path, class: "nav-link"
+    
+      .container-fluid.text-center
+        .col-md-12.ml-auto.mr-auto
+          = yield
