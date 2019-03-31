@@ -2,6 +2,7 @@ require 'google/api_client/client_secrets.rb'
 require 'google/apis/calendar_v3'
 
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
+
   def google_oauth2
     if request.env["omniauth.auth"].info["email"] !~ /@profitero\.com$/
       flash[:alert] = "You must enter under profitero user account."

@@ -1,5 +1,5 @@
-require 'google/api_client/client_secrets.rb'
 require 'google/apis/calendar_v3'
+require 'google/api_client/client_secrets'
 
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy, :join]
@@ -70,7 +70,7 @@ class EventsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to events_url, notice: "See you on #{@event.title}" }
       format.json { render :index, status: :ok }
-    add_event_to_calendar if @event.users.size == @event.min_people 
+    # add_event_to_calendar # if @event.users.size == @event.min_people 
     update_event if @event.users.size > @event.min_people  # && !@event.users.include?(current_user)
     end
   end
@@ -78,6 +78,7 @@ class EventsController < ApplicationController
   def add_event_to_calendar
     service = Google::Apis::CalendarV3::CalendarService.new
     service.authorization = google_secret.to_authorization
+    service.authorization.fetch_access_token!
     start = @event.start.rfc3339
     end_time =  @event.end.rfc3339
     attendees = @event.users.map do |user| {email: user.email} end
@@ -92,13 +93,15 @@ class EventsController < ApplicationController
       attendees:  attendees,
       id: @event.id * 10000
     })
-    service.insert_event('primary', new_event, send_updates: "all") unless service.get_event('primary', @event.id * 10000)
+    service.insert_event('primary', new_event, send_updates: "all")
   end
+
 
   def update_event
     service = Google::Apis::CalendarV3::CalendarService.new
     service.authorization = google_secret.to_authorization
-    ev = service.get_event('primary', @event.id * 10000)
+    service.authorization.fetch_access_token!
+    ev = service.get_event('primary', @event.id * 10000) if service
     ev.attendees << {email: current_user.email}
     service.update_event('primary', @event.id * 10000 , ev)
   end
@@ -126,4 +129,5 @@ class EventsController < ApplicationController
       }
     )
   end
+
 end
