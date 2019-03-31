@@ -14,4 +14,4 @@
           = f.label :following_tags
           = select_tag :following_tags, options_for_select(Tag.all.collect {|u| [u.name, u.id]}),:multiple => true, class: "form-control selectpicker", style: "min-height: 200px;"
       .actions
-        = f.submit nil, class: 'btn btn-sucess'
+        = f.submit 'Update', class: 'btn btn-sucess'
