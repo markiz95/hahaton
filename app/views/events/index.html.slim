@@ -1,9 +1,11 @@
-.container
-  h1 Listing events
-
-  - @events.each_slice(3) do |e1, e2, e3|
-    .row
-      = render 'event', event: e1 if e1
-      = render 'event', event: e2 if e2
-      = render 'event', event: e3 if e3
+h1 Upcoming events
+.row
+  .col-md-3.ecommerce-page
+    = render "filter", tags: @tags, users: @users
+  .col-md-9
+    - @events.each_slice(3) do |e1, e2, e3|
+      .row
+        = render 'event', event: e1 if e1
+        = render 'event', event: e2 if e2
+        = render 'event', event: e3 if e3
 

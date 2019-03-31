@@ -4,7 +4,7 @@
       / .card-header.card-header-rose.card-header-text
       /    .card-text.text-center
       /       h3.card-title = @event.title
-      = image_tag("https://images.unsplash.com/photo-1517303650219-83c8b1788c4c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=bd4c162d27ea317ff8c67255e955e3c8&auto=format&fit=crop&w=2691&q=80", class: "card-img-top")
+      = image_tag(@event.image.to_s, class: "card-img-top")
       .card-body
         .text-left
           p.card-text

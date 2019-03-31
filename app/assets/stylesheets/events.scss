@@ -1,3 +1,59 @@
 .card-img-fixed {
     height: 250px;
 }
+
+.ecommerce-page .container {
+    position: relative;
+    z-index: 2;
+}
+
+.ecommerce-page .page-header .container {
+    padding-top: 20vh;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+.ecommerce-page .card-refine .panel-collapse {
+    max-height: 273px;
+    overflow-y: scroll;
+}
+
+.ecommerce-page .card-refine .panel-rose a:hover, .ecommerce-page .card-refine .panel-rose a:focus, .ecommerce-page .card-refine .panel-rose a[aria-expanded="true"] {
+    color: #e91e63;
+}
+
+.ecommerce-page .card-refine .panel-body {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.ecommerce-page .card-refine .panel-body.panel-refine {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.ecommerce-page .card-refine .panel-heading i {
+    float: none;
+}
+
+.ecommerce-page .card-refine .price-right,
+.ecommerce-page .card-refine .price-left {
+    font-weight: 500;
+}
+
+.ecommerce-page .card-refine .btn {
+    margin: -3px 0;
+}
+
+.ecommerce-page .card-refine .panel {
+    margin-bottom: 0;
+}
+
+.ecommerce-page .card-refine .checkbox input[type=checkbox]:checked + .checkbox-material .check {
+    background: #e91e63;
+}
+
+.ecommerce-page .card-refine .panel-title {
+    display: inline-block;
+    width: calc(100% - 28px);
+}
