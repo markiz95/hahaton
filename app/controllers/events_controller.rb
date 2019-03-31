@@ -114,7 +114,7 @@ class EventsController < ApplicationController
   def create_service
     service = Google::Apis::CalendarV3::CalendarService.new
     service.authorization = google_secret.to_authorization
-    # service.authorization.fetch_access_token!
+    service.authorization.fetch_access_token!
     service
   end
 
